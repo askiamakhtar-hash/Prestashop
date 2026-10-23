@@ -21,6 +21,27 @@ echo "sdk.dir=/chemin/vers/android-sdk" > local.properties   # ou exporter ANDRO
 
 Ou ouvrir le dossier dans Android Studio.
 
+## Build release signé
+La signature lit `keystore.properties` à la racine de `libidor-android/` (ignoré par git) :
+
+```properties
+storeFile=signing/libidor-release.jks
+storePassword=...
+keyAlias=libidor
+keyPassword=...
+```
+
+ou, en CI, les variables `LIBIDOR_KEYSTORE`, `LIBIDOR_KEYSTORE_PASSWORD`,
+`LIBIDOR_KEY_ALIAS`, `LIBIDOR_KEY_PASSWORD`.
+
+```bash
+./gradlew assembleRelease   # app/build/outputs/apk/release/app-release.apk
+./gradlew bundleRelease     # app/build/outputs/bundle/release/app-release.aab (Google Play)
+```
+
+Ne jamais committer le keystore ni ses mots de passe. Perdre ce keystore empêche de
+publier des mises à jour de l’application : conservez-en une copie sauvegardée.
+
 ## Connexion à l’API
 1. Démarrer l’API (`npm run dev:api` dans `LIBIDOR_Full_Source`), port 4000.
 2. Émulateur : l’URL par défaut `http://10.0.2.2:4000` pointe vers la machine hôte.

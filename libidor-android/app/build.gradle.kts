@@ -1,8 +1,17 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
+
+// Release signing reads keystore.properties (git-ignored) or LIBIDOR_* environment variables.
+val keystoreProps = Properties().apply {
+    val f = rootProject.file("keystore.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+fun signingValue(key: String, env: String): String? = keystoreProps.getProperty(key) ?: System.getenv(env)
 
 android {
     namespace = "sn.libidor.app"
@@ -19,8 +28,21 @@ android {
         buildConfigField("String", "DEFAULT_API_KEY", "\"local-demo-key\"")
     }
 
+    signingConfigs {
+        create("release") {
+            val storePath = signingValue("storeFile", "LIBIDOR_KEYSTORE")
+            if (storePath != null) {
+                storeFile = rootProject.file(storePath)
+                storePassword = signingValue("storePassword", "LIBIDOR_KEYSTORE_PASSWORD")
+                keyAlias = signingValue("keyAlias", "LIBIDOR_KEY_ALIAS")
+                keyPassword = signingValue("keyPassword", "LIBIDOR_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release").takeIf { it.storeFile != null }
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
