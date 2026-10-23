@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LIBIDOR</string>
+    <string name="offline_title">Pas de connexion</string>
+    <string name="offline_message">Vérifiez votre connexion Internet puis réessayez.</string>
+    <string name="retry">Réessayer</string>
+    <string name="no_app">Aucune application pour ouvrir ce lien.</string>
+    <string name="choose_file">Choisir un fichier</string>
+</resources>
