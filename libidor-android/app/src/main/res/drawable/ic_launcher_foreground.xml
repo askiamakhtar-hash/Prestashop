@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stylised cowrie shell (cauri) in gold. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#D4A73C"
+        android:pathData="M54,28C39,28 32,42 32,54C32,66 39,80 54,80C69,80 76,66 76,54C76,42 69,28 54,28Z" />
+    <path android:fillColor="#0B1F3A"
+        android:pathData="M52,36L56,36L56,72L52,72Z" />
+    <path android:fillColor="#0B1F3A"
+        android:pathData="M44,42L50,42L50,45L44,45ZM44,50L50,50L50,53L44,53ZM44,58L50,58L50,61L44,61ZM58,42L64,42L64,45L58,45ZM58,50L64,50L64,53L58,53ZM58,58L64,58L64,61L58,61Z" />
+</vector>
